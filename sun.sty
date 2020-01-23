@@ -1,0 +1,51 @@
+% 長崎県立大学情報システム学部情報システム学科卒業論文発表会資料LaTeXスタイルファイル
+% v0.1 (2020-01-23)
+%
+% 使用例
+%
+% \documentclass[twocolumn]{jsarticle}
+% \usepackage{sun}
+% \phiscalyear{2019}
+% \title{タイトル}
+% \author{著者}
+% \studentnumber{BS116000}
+% 
+% \begin{document}
+% \maketitle
+% ...
+% \end{document}
+%
+\makeatletter
+\newcommand{\phiscalyear}[1]{\def\@phiscalyear{#1}}
+\newcommand{\studentnumber}[1]{\def\@studentnumber{#1}}
+\def\@maketitle{
+    \begin{minipage}{156mm}
+    \begin{flushleft}
+        \@phiscalyear 年度卒業論文発表会資料
+    \end{flushleft}
+    {\hrule height 2pt}
+    \begin{center}
+        {\large\textgt{\@title}}
+    \end{center}
+    {\hrule height 1pt}
+    \begin{center}
+        長崎県立大学~情報システム学部~情報システム学科~\@studentnumber~\@author
+    \end{center}
+    {\hrule height 2pt}
+    \end{minipage}
+    \hspace{5mm}
+}
+\renewcommand{\maketitle}{
+    \if@twocolumn
+        \ifnum \col@number=\@ne
+            \@maketitle
+        \else
+            \twocolumn[\@maketitle]%
+        \fi
+    \else
+        \newpage
+        \global\@topnum\z@  % Prevents figures from going at top of page.
+        \@maketitle
+    \fi
+}
+\makeatother
